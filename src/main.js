@@ -6,7 +6,6 @@ const path = require('path');
 const express = require('express');
 const { ObjectId } = require('mongodb');
 const db = require('./config/ATN.db');
-const route = require('./routes/index.Route.js');
 const cookieParser = require('cookie-parser');
 const handlebars = require('express-handlebars');
 const formidable = require('express-formidable');
@@ -46,6 +45,7 @@ app.engine('hbs', handlebars.engine({
     },
 }));
 
+const route = require('./routes/index.Route.js');
 route(app);
 
 db.connect();
