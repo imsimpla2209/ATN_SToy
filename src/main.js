@@ -45,7 +45,7 @@ app.engine('hbs', handlebars.engine({
     },
 }));
 
-const route = require('./routes/index.route');
+const route = require('../routes/index.route');
 route(app);
 
 db.connect();
