@@ -4,7 +4,7 @@
     "description": "asm2 of Hoang C.E.O ",
     "main": "src/main.js",
     "scripts": {
-        "start": "src/main.js",
+        "start": "node src/main.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
