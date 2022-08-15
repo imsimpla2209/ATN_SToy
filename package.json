@@ -1,0 +1,46 @@
+{
+    "name": "atn_stoy",
+    "version": "1.0.0",
+    "description": "asm2 of Hoang C.E.O ",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "src/main.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/imsimpla2209/ATN_SToy.git"
+    },
+    "keywords": [
+        "ATN",
+        "SeToy",
+        "GetH1gh"
+    ],
+    "author": "Hoang C.E.O",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/imsimpla2209/ATN_SToy/issues"
+    },
+    "homepage": "https://github.com/imsimpla2209/ATN_SToy#readme",
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "express": "^4.18.1",
+        "express-formidable": "^1.2.0",
+        "express-handlebars": "^6.0.6",
+        "formidable": "^2.0.1",
+        "fs": "^0.0.1-security",
+        "hbs": "^4.2.0",
+        "http": "^0.0.1-security",
+        "jsonwebtoken": "^8.5.1",
+        "method-override": "^3.0.0",
+        "mongodb": "^4.8.1",
+        "mongoose": "^6.5.2",
+        "morgan": "^1.10.0",
+        "multer": "^1.4.5-lts.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.19"
+    }
+}

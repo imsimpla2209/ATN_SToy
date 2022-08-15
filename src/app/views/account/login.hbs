@@ -1,0 +1,134 @@
+<title>Login</title>
+<style>
+  body{
+    background-color:#040539;
+}
+
+.card{
+    width:350px;
+    padding:10px;
+    border:none;
+    border-radius:20px;
+}
+
+.form-input input{
+    height:45px;
+    padding-right:35px;
+    border:2px solid #eee;
+    transition:all 0.5s;
+}
+
+.form-input input:focus{
+    box-shadow:none;
+    border:2px solid #000;
+}
+
+.info-text{
+    font-size:14px;
+}
+
+.form-input i{
+    position:absolute;
+    top:14px;
+    right:10px;
+}
+
+
+
+.go-button{
+    border:none;
+    height:50px;
+    width:50px;
+    font-size:29px;
+    color:#fff;
+    background-color:#651FFF;
+    border-radius:50%;
+    transition:all 0.5s;
+}
+
+.go-button:hover{
+    background-color:#6200EA;
+}
+
+.signin_warn {
+    border: 1px solid red !important
+}
+</style>
+<div  class="container vh-100 d-flex justify-content-center align-items-center signin_form">
+    <form onsubmit="return letLogin(this);" class="card py-4 px-4">
+        <div class="text-center">
+            <h3>ATN warehouse management</h3>
+        </div>
+        <div class="text-center mt-3">
+            
+        <span class="info-text">Chỉ dành cho nhân viên hoặc quản lý của ATN</span>
+        
+        </div>
+        <div class="position-relative mt-3 form-input">
+            <input class="form-control" type="text" name="username" placeholder="Tên đăng nhập">
+            <i class='bx bxs-user'></i>
+        </div>
+        <div class="position-relative mt-3 form-input">
+            <input class="form-control" type="password" name="password" placeholder="Mật khẩu">
+            <i class='bx bxs-lock'></i>
+        </div>
+        
+        
+        <div class=" mt-5 d-flex justify-content-between align-items-center">
+            <button type="submit" name="submit" class="go-button login_button"><i class='bx bxs-right-arrow-alt' ></i></button>
+        </div>
+    </form>
+</div>
+
+<script>
+  var login_button=document.querySelector(".login_button");
+  var signin_form_input=document.querySelectorAll(".signin_form input");
+  console.log(signin_form_input)
+
+  login_button.onclick=function(){
+      signin_form_input.forEach((e)=>{
+          if(e.value.length<1){
+              e.classList.add('signin_warn');
+          }
+            
+      });
+  };
+
+  signin_form_input.forEach((e)=>{
+      e.addEventListener('keyup',function(){
+        if(e.value.length<1) e.classList.add('signin_warn');
+        else e.classList.remove('signin_warn');
+      });
+  });
+
+  function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function letLogin(form) {
+    form.submit.setAttribute('disabled', 'disabled');
+    form.submit.innerHTML = "<i class='bx bx-loader-alt'></i>";
+    var ajax = new XMLHttpRequest();
+    ajax.open("POST", "login", true);
+    ajax.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            form.submit.removeAttribute('disabled');
+            form.submit.innerHTML = "<i class='bx bxs-right-arrow-alt'></i>"; 
+            var response = JSON.parse(this.responseText);
+            alert(response.message);
+            if (response.status == "success") {
+                var accessToken = response.accessToken;
+                setCookie('token', accessToken, 0.2);      
+                window.location.href = "/";
+            } else { alert(res.message) }
+        }
+    };
+    ajax.send(new FormData(form));
+    return false;
+  }
+
+
+</script>

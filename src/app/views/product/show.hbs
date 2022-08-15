@@ -1,0 +1,147 @@
+<style>
+    
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        color: #495057;
+        background-color: transparent;
+        border-color: transparent;
+        border-bottom: 3px solid #000;
+    }
+    
+    .nav-tabs>li>a {
+        text-transform: uppercase;
+        color: #000;
+        font-weight: 500;
+    }
+    
+    .nav-tabs .nav-link:hover {
+        border-color: transparent;
+        border-bottom: 3px solid #000
+    }
+
+    
+    .nav-tabs {
+        border-bottom: none;
+    }
+    
+    .card {
+        border: none;
+    }
+    
+    .card-body {
+        flex: 1 1 auto;
+        padding: 10px;
+    }
+    
+    .card-text {
+        font-size: 13px;
+    }
+    
+    .guarantee {
+        color: rgb(92, 96, 245);
+        margin-left: 4px;
+        font-weight: 700
+    }
+    
+    hr {
+        margin: 0.2rem 0;
+        color: #bfbebe;
+    }
+    
+    .buttons button {
+        text-transform: uppercase;
+        font-size: 12px;
+        border-radius: 2px;
+    }
+</style>
+
+<div class="container-fluid mt-2 mb-5">
+    <div class="mx-n1">
+        <a href="add" class="btn d-inline-flex btn-sm btn-primary mx-1"> <span class=" pe-2"> <i class="bi bi-plus"></i> </span> <span>Create</span> </a>
+    </div>
+    <div class="products">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation"> <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Boy</a> </li>
+                        <li class="nav-item" role="presentation"> <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Girl</a> </li>
+                        <li class="nav-item" role="presentation"> <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Adult</a> </li>
+                    </ul>
+                <br>
+
+                <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center"> <span class="font-weight-bold text-uppercase">All Toys</span>
+                    <div> <img src="https://img.icons8.com/windows/100/000000/list.png" width="30" /> <img src="https://img.icons8.com/ios-filled/100/000000/squared-menu.png" width="25" /> </div>
+                </div>
+                <div class="row g-3">
+                    {{#each products}}
+                    <div class="col-md-4">
+                        <div class="card"> 
+                            {{!-- {{#each image}} --}}
+                            <img src="data:{{image.contentType}};base64,{{image.imageBase64}}" class="card-img-top" style="height:266px !important">
+                            {{!-- {{/each}} --}}
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between"> <span class="font-weight-bold" style="font-weight: bold;">{{name}}</span> <span class="font-weight-bold">${{price}}</span> </div>
+                                <p class="card-text mb-1 mt-1">{{#summary description}}{{/summary}}</p>
+                                <div class="d-flex align-items-center flex-row"> 
+                                    <img src="https://i.imgur.com/e9VnSng.png" width="20">
+                                    {{#isGreaterThan price 200}}
+                                    <span class="guarantee">7 Months Guarantee</span> 
+                                    {{else}}
+                                    <span class="guarantee">4 Months Guarantee</span> 
+                                    {{/isGreaterThan}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="card-body">
+                                <div class="text-right buttons"> <a href="edit/{{_id}}" class="btn d-inline-flex btn-sm btn-neutral border-base mx-1"> <span class=" pe-2"> <i class="bi bi-pencil"></i> </span> <span>Edit</span> </a> <a href="delete/?id={{_id}}"><button class="btn btn-dark">Delete</button></a> </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each }}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <!--Chairs-->
+                <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center"> <span class="font-weight-bold text-uppercase">Luxury Chairs</span>
+                    <div> <img src="https://img.icons8.com/windows/100/000000/list.png" width="30" /> <img src="https://img.icons8.com/ios-filled/100/000000/squared-menu.png" width="25" /> </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card"> <img src="https://i.imgur.com/2ldaKjy.jpg" class="card-img-top">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between"> <span class="font-weight-bold">Wodden chairs set-2</span> <span class="font-weight-bold">$150</span> </div>
+                                <p class="card-text mb-1 mt-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <div class="d-flex align-items-center flex-row"> <img src="https://i.imgur.com/e9VnSng.png" width="20"> <span class="guarantee">4 Years Guarantee</span> </div>
+                            </div>
+                            <hr>
+                            <div class="card-body">
+                                <div class="text-right buttons"> <button class="btn btn-outline-dark">add to wishlist</button> <button class="btn btn-dark">Add to cart</button> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <!--Dining-->
+                <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center"> <span class="font-weight-bold text-uppercase">Luxury Dining</span>
+                    <div> <img src="https://img.icons8.com/windows/100/000000/list.png" width="30" /> <img src="https://img.icons8.com/ios-filled/100/000000/squared-menu.png" width="25" /> </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card"> <img src="https://i.imgur.com/hnQ492C.jpg" class="card-img-top">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between"> <span class="font-weight-bold">Dinning table set-4</span> <span class="font-weight-bold">$450</span> </div>
+                                <p class="card-text mb-1 mt-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <div class="d-flex align-items-center flex-row"> <img src="https://i.imgur.com/e9VnSng.png" width="20"> <span class="guarantee">4 Years Guarantee</span> </div>
+                            </div>
+                            <hr>
+                            <div class="card-body">
+                                <div class="text-right buttons"> <button class="btn btn-outline-dark">add to wishlist</button> <button class="btn btn-dark">Add to cart</button> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
