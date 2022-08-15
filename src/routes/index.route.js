@@ -8,8 +8,6 @@ const formidable = require('express-formidable');
 
 
 var route = (app) => {
-    // app.use('/suppliers', supplierRouter);
-    // app.use('/categories', categoryRouter);
     app.use('/products', productRouter);
     app.use(formidable());
     app.use('/', siteRouter);
