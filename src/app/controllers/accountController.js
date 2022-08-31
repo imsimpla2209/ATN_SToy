@@ -2,6 +2,7 @@ const Account = require('../models/account.model');
 const { multipleMongooseToObject } = require('../../util/mongoose');
 const jwt = require('jsonwebtoken');
 const secretKey = 'Cocaidbhackdc';
+//Secrect key to sign and verify jwt
 
 class AccountController {
     create = async(req, res) => {

@@ -1,5 +1,4 @@
 <style>
-    
     .nav-tabs .nav-item.show .nav-link,
     .nav-tabs .nav-link.active {
         color: #495057;
@@ -53,7 +52,34 @@
         font-size: 12px;
         border-radius: 2px;
     }
+
+    #live-search {
+        background-color: #fff;
+        border: 1px solid rgb(145, 142, 142);
+        width: 223px;
+        border-radius: 4px;
+        position: absolute;
+        z-index: 3;
+    }
+
+    .hide{
+        display: none;
+    }
+
+    a:link,a:hover,a:visited,a:active{
+        color:black;
+    }
+
+    .hint:hover{
+        background-color: #ccc;
+    }
+    .search-contain{
+        position: relative;
+    }
+
+
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <div class="container-fluid mt-2 mb-5">
     <div class="mx-n1">
@@ -69,8 +95,11 @@
                     </ul>
                 <br>
 
-                <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center"> <span class="font-weight-bold text-uppercase">All Toys</span>
-                    <div> <img src="https://img.icons8.com/windows/100/000000/list.png" width="30" /> <img src="https://img.icons8.com/ios-filled/100/000000/squared-menu.png" width="25" /> </div>
+                <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center search-contain"> <span class="font-weight-bold text-uppercase">All Toys</span>
+                    <div> 
+                        <input autocomplete="off" type="text" placeholder="find any product..." onkeyup="showResult(this.value)" class="form-control litanswer">
+                        <div id="live-search" class=""></div>
+                    </div>
                 </div>
                 <div class="row g-3">
                     {{#each products}}
@@ -100,48 +129,32 @@
                     {{/each }}
                 </div>
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <!--Chairs-->
-                <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center"> <span class="font-weight-bold text-uppercase">Luxury Chairs</span>
-                    <div> <img src="https://img.icons8.com/windows/100/000000/list.png" width="30" /> <img src="https://img.icons8.com/ios-filled/100/000000/squared-menu.png" width="25" /> </div>
-                </div>
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <div class="card"> <img src="https://i.imgur.com/2ldaKjy.jpg" class="card-img-top">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between"> <span class="font-weight-bold">Wodden chairs set-2</span> <span class="font-weight-bold">$150</span> </div>
-                                <p class="card-text mb-1 mt-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="d-flex align-items-center flex-row"> <img src="https://i.imgur.com/e9VnSng.png" width="20"> <span class="guarantee">4 Years Guarantee</span> </div>
-                            </div>
-                            <hr>
-                            <div class="card-body">
-                                <div class="text-right buttons"> <button class="btn btn-outline-dark">add to wishlist</button> <button class="btn btn-dark">Add to cart</button> </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                <!--Dining-->
-                <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center"> <span class="font-weight-bold text-uppercase">Luxury Dining</span>
-                    <div> <img src="https://img.icons8.com/windows/100/000000/list.png" width="30" /> <img src="https://img.icons8.com/ios-filled/100/000000/squared-menu.png" width="25" /> </div>
-                </div>
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <div class="card"> <img src="https://i.imgur.com/hnQ492C.jpg" class="card-img-top">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between"> <span class="font-weight-bold">Dinning table set-4</span> <span class="font-weight-bold">$450</span> </div>
-                                <p class="card-text mb-1 mt-1">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="d-flex align-items-center flex-row"> <img src="https://i.imgur.com/e9VnSng.png" width="20"> <span class="guarantee">4 Years Guarantee</span> </div>
-                            </div>
-                            <hr>
-                            <div class="card-body">
-                                <div class="text-right buttons"> <button class="btn btn-outline-dark">add to wishlist</button> <button class="btn btn-dark">Add to cart</button> </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    let search = $("#live-search");
+
+
+
+
+function showResult(str){
+    if(str.length === 0){
+        search.addClass("hide")
+    }else{
+        search.removeClass("hide");
+    }
+
+    $.ajax({
+        url: "",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({search: str}),
+        success: function(result){
+            search.html(result.response);
+
+        }
+    });
+}
+</script>

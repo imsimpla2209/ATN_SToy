@@ -80,13 +80,6 @@ class productController {
 
         let count = 0;
 
-        if (files == null) {
-            const error = new Error('Please choose files');
-            res.json({
-                status: "error",
-                message: error
-            });
-        }
         let savedProduct;
         let { name, description, price, quantity } = req.body;
         let fimg = fs.readFileSync(files[1].path)
@@ -119,7 +112,7 @@ class productController {
             return encode_image;
         })
 
-        let result = imgArray.map((src, index) => {
+        let result = imgArray.map(async(src, index) => {
             // create object to store data in the collection
             let finalImg = {
                 productId: savedProduct._id,
@@ -138,9 +131,9 @@ class productController {
                 .catch(error => {
                     if (error) {
                         if (error.name === 'MongoError' && error.code === 11000) {
-                            return Promise.reject({ error: `Duplicate ${files[index].originalname}. File Already exists! ` });
+                            return Promise.reject({ error: `Duplicate File Name! ` });
                         }
-                        return Promise.reject({ error: error.message || `Cannot Upload ${files[index].originalname} Something Missing!` })
+                        return Promise.reject({ error: error.message || `Cannot Upload Image, Something went wrong!` })
                     }
                 })
         });
@@ -200,6 +193,42 @@ class productController {
                 "status": "error",
                 "message": 'Something went wrong when performing delete' + error
             });
+        }
+    }
+
+    searchShowing = (req, res) => {
+        let hint = "";
+        let response = "";
+        let searchQ = "";
+        if (req.body != null)
+            searchQ = req.body.search.toLowerCase();
+        let filterNum = 1;
+
+        if (searchQ.length > 0) {
+            product.find(function(err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    results.forEach(function(sResult) {
+                        if (sResult.name.indexOf(searchQ) != -1) {
+                            if (hint === "") {
+                                hint = `<a class='hint' href='edit/${sResult._id}' target='_blank'>  ${sResult.name}  </a>`;
+                            } else if (filterNum < 6) {
+                                hint = hint + `<br><a class='hint' href='edit/${sResult._id}' target='_blank'>  ${sResult.name}  </a>`;
+                                filterNum++;
+                            }
+                        }
+                    })
+                }
+                if (hint === "") {
+                    response = "no suggestion"
+                } else {
+                    response = hint;
+                }
+
+                res.send({ response: response });
+            });
+
         }
     }
 }

@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.post('/add', authenticator, store.array('images', 12), productController.uploadProduct);
 
+router.post('/', productController.searchShowing);
+
 router.put('/edit', authenticator, productController.update);
 
 router.delete('/delete', authenticator, productController.delete);
@@ -16,7 +18,7 @@ router.get('/add', authenticator, productController.add);
 
 router.get('/edit/:slug', authenticator, productController.showOne);
 
-router.get('/:slug', authenticator, productController.show);
+router.get('/search/:slug', productController.show);
 
 router.get('/', authenticator, productController.show);
 
